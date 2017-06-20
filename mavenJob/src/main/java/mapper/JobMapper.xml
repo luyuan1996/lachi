@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.JobMapper">
+  <resultMap id="BaseResultMap" type="pojo.Job">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="com_id" jdbcType="VARCHAR" property="comId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="fresh" jdbcType="TINYINT" property="fresh" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="time" jdbcType="INTEGER" property="time" />
+    <result column="jobtype" jdbcType="VARCHAR" property="jobtype" />
+    <result column="workplace" jdbcType="VARCHAR" property="workplace" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="workexperience" jdbcType="VARCHAR" property="workexperience" />
+    <result column="jobtitle" jdbcType="VARCHAR" property="jobtitle" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="information" jdbcType="VARCHAR" property="information" />
+    <result column="opendate" jdbcType="TIMESTAMP" property="opendate" />
+    <result column="byemail" jdbcType="TINYINT" property="byemail" />
+    <result column="relationpeople" jdbcType="VARCHAR" property="relationpeople" />
+    <result column="relationemail" jdbcType="VARCHAR" property="relationemail" />
+    <result column="relationqq" jdbcType="VARCHAR" property="relationqq" />
+    <result column="relationphone" jdbcType="VARCHAR" property="relationphone" />
+    <result column="relationaddress" jdbcType="VARCHAR" property="relationaddress" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, com_id, name, sex, fresh, number, time, jobtype, workplace, education, workexperience, 
+    jobtitle, money, information, opendate, byemail, relationpeople, relationemail, relationqq, 
+    relationphone, relationaddress
+  </sql>
+  <select id="selectByExample" parameterType="pojo.JobExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from job
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from job
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from job
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.JobExample">
+    delete from job
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Job">
+    insert into job (id, com_id, name, 
+      sex, fresh, number, 
+      time, jobtype, workplace, 
+      education, workexperience, jobtitle, 
+      money, information, opendate, 
+      byemail, relationpeople, relationemail, 
+      relationqq, relationphone, relationaddress
+      )
+    values (#{id,jdbcType=VARCHAR}, #{comId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{fresh,jdbcType=TINYINT}, #{number,jdbcType=INTEGER}, 
+      #{time,jdbcType=INTEGER}, #{jobtype,jdbcType=VARCHAR}, #{workplace,jdbcType=VARCHAR}, 
+      #{education,jdbcType=VARCHAR}, #{workexperience,jdbcType=VARCHAR}, #{jobtitle,jdbcType=VARCHAR}, 
+      #{money,jdbcType=VARCHAR}, #{information,jdbcType=VARCHAR}, #{opendate,jdbcType=TIMESTAMP}, 
+      #{byemail,jdbcType=TINYINT}, #{relationpeople,jdbcType=VARCHAR}, #{relationemail,jdbcType=VARCHAR}, 
+      #{relationqq,jdbcType=VARCHAR}, #{relationphone,jdbcType=VARCHAR}, #{relationaddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Job">
+    insert into job
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="comId != null">
+        com_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="fresh != null">
+        fresh,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="jobtype != null">
+        jobtype,
+      </if>
+      <if test="workplace != null">
+        workplace,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="workexperience != null">
+        workexperience,
+      </if>
+      <if test="jobtitle != null">
+        jobtitle,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="information != null">
+        information,
+      </if>
+      <if test="opendate != null">
+        opendate,
+      </if>
+      <if test="byemail != null">
+        byemail,
+      </if>
+      <if test="relationpeople != null">
+        relationpeople,
+      </if>
+      <if test="relationemail != null">
+        relationemail,
+      </if>
+      <if test="relationqq != null">
+        relationqq,
+      </if>
+      <if test="relationphone != null">
+        relationphone,
+      </if>
+      <if test="relationaddress != null">
+        relationaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="comId != null">
+        #{comId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="fresh != null">
+        #{fresh,jdbcType=TINYINT},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="jobtype != null">
+        #{jobtype,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="workexperience != null">
+        #{workexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtitle != null">
+        #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null">
+        #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="opendate != null">
+        #{opendate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="byemail != null">
+        #{byemail,jdbcType=TINYINT},
+      </if>
+      <if test="relationpeople != null">
+        #{relationpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="relationemail != null">
+        #{relationemail,jdbcType=VARCHAR},
+      </if>
+      <if test="relationqq != null">
+        #{relationqq,jdbcType=VARCHAR},
+      </if>
+      <if test="relationphone != null">
+        #{relationphone,jdbcType=VARCHAR},
+      </if>
+      <if test="relationaddress != null">
+        #{relationaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.JobExample" resultType="java.lang.Long">
+    select count(*) from job
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update job
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comId != null">
+        com_id = #{record.comId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.fresh != null">
+        fresh = #{record.fresh,jdbcType=TINYINT},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=INTEGER},
+      </if>
+      <if test="record.jobtype != null">
+        jobtype = #{record.jobtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workplace != null">
+        workplace = #{record.workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.education != null">
+        education = #{record.education,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workexperience != null">
+        workexperience = #{record.workexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobtitle != null">
+        jobtitle = #{record.jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=VARCHAR},
+      </if>
+      <if test="record.information != null">
+        information = #{record.information,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opendate != null">
+        opendate = #{record.opendate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.byemail != null">
+        byemail = #{record.byemail,jdbcType=TINYINT},
+      </if>
+      <if test="record.relationpeople != null">
+        relationpeople = #{record.relationpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationemail != null">
+        relationemail = #{record.relationemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationqq != null">
+        relationqq = #{record.relationqq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationphone != null">
+        relationphone = #{record.relationphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relationaddress != null">
+        relationaddress = #{record.relationaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update job
+    set id = #{record.id,jdbcType=VARCHAR},
+      com_id = #{record.comId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      fresh = #{record.fresh,jdbcType=TINYINT},
+      number = #{record.number,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=INTEGER},
+      jobtype = #{record.jobtype,jdbcType=VARCHAR},
+      workplace = #{record.workplace,jdbcType=VARCHAR},
+      education = #{record.education,jdbcType=VARCHAR},
+      workexperience = #{record.workexperience,jdbcType=VARCHAR},
+      jobtitle = #{record.jobtitle,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=VARCHAR},
+      information = #{record.information,jdbcType=VARCHAR},
+      opendate = #{record.opendate,jdbcType=TIMESTAMP},
+      byemail = #{record.byemail,jdbcType=TINYINT},
+      relationpeople = #{record.relationpeople,jdbcType=VARCHAR},
+      relationemail = #{record.relationemail,jdbcType=VARCHAR},
+      relationqq = #{record.relationqq,jdbcType=VARCHAR},
+      relationphone = #{record.relationphone,jdbcType=VARCHAR},
+      relationaddress = #{record.relationaddress,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Job">
+    update job
+    <set>
+      <if test="comId != null">
+        com_id = #{comId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="fresh != null">
+        fresh = #{fresh,jdbcType=TINYINT},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="jobtype != null">
+        jobtype = #{jobtype,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        workplace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="workexperience != null">
+        workexperience = #{workexperience,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtitle != null">
+        jobtitle = #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="information != null">
+        information = #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="opendate != null">
+        opendate = #{opendate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="byemail != null">
+        byemail = #{byemail,jdbcType=TINYINT},
+      </if>
+      <if test="relationpeople != null">
+        relationpeople = #{relationpeople,jdbcType=VARCHAR},
+      </if>
+      <if test="relationemail != null">
+        relationemail = #{relationemail,jdbcType=VARCHAR},
+      </if>
+      <if test="relationqq != null">
+        relationqq = #{relationqq,jdbcType=VARCHAR},
+      </if>
+      <if test="relationphone != null">
+        relationphone = #{relationphone,jdbcType=VARCHAR},
+      </if>
+      <if test="relationaddress != null">
+        relationaddress = #{relationaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Job">
+    update job
+    set com_id = #{comId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      fresh = #{fresh,jdbcType=TINYINT},
+      number = #{number,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
+      jobtype = #{jobtype,jdbcType=VARCHAR},
+      workplace = #{workplace,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      workexperience = #{workexperience,jdbcType=VARCHAR},
+      jobtitle = #{jobtitle,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      information = #{information,jdbcType=VARCHAR},
+      opendate = #{opendate,jdbcType=TIMESTAMP},
+      byemail = #{byemail,jdbcType=TINYINT},
+      relationpeople = #{relationpeople,jdbcType=VARCHAR},
+      relationemail = #{relationemail,jdbcType=VARCHAR},
+      relationqq = #{relationqq,jdbcType=VARCHAR},
+      relationphone = #{relationphone,jdbcType=VARCHAR},
+      relationaddress = #{relationaddress,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

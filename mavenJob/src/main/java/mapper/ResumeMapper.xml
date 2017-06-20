@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ResumeMapper">
+  <resultMap id="BaseResultMap" type="pojo.Resume">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="resumename" jdbcType="VARCHAR" property="resumename" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="brithday" jdbcType="TIMESTAMP" property="brithday" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="married" jdbcType="TINYINT" property="married" />
+    <result column="experience" jdbcType="VARCHAR" property="experience" />
+    <result column="idaddress" jdbcType="VARCHAR" property="idaddress" />
+    <result column="educational" jdbcType="VARCHAR" property="educational" />
+    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="blog" jdbcType="VARCHAR" property="blog" />
+    <result column="get" jdbcType="TINYINT" property="get" />
+    <result column="jobtype" jdbcType="INTEGER" property="jobtype" />
+    <result column="nearjob" jdbcType="VARCHAR" property="nearjob" />
+    <result column="workplace" jdbcType="VARCHAR" property="workplace" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="jobwanted" jdbcType="VARCHAR" property="jobwanted" />
+    <result column="studystart" jdbcType="TIMESTAMP" property="studystart" />
+    <result column="studyover" jdbcType="TIMESTAMP" property="studyover" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="jobstart" jdbcType="TIMESTAMP" property="jobstart" />
+    <result column="jobover" jdbcType="TIMESTAMP" property="jobover" />
+    <result column="companyname" jdbcType="VARCHAR" property="companyname" />
+    <result column="companyinformation" jdbcType="VARCHAR" property="companyinformation" />
+    <result column="workin" jdbcType="VARCHAR" property="workin" />
+    <result column="showing" jdbcType="VARCHAR" property="showing" />
+    <result column="trainstart" jdbcType="TIMESTAMP" property="trainstart" />
+    <result column="trainover" jdbcType="TIMESTAMP" property="trainover" />
+    <result column="trainplace" jdbcType="VARCHAR" property="trainplace" />
+    <result column="class1" jdbcType="VARCHAR" property="class1" />
+    <result column="classinformation" jdbcType="VARCHAR" property="classinformation" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, resumename, uid, name, gender, brithday, height, married, experience, idaddress, 
+    educational, hobby, phone, email, address, qq, blog, get, jobtype, nearjob, workplace, 
+    money, jobwanted, studystart, studyover, school, major, photo, jobstart, jobover, 
+    companyname, companyinformation, workin, showing, trainstart, trainover, trainplace, 
+    class1, classinformation, date
+  </sql>
+  <select id="selectByExample" parameterType="pojo.ResumeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resume
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from resume
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.ResumeExample">
+    delete from resume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Resume">
+    insert into resume (id, resumename, uid, 
+      name, gender, brithday, 
+      height, married, experience, 
+      idaddress, educational, hobby, 
+      phone, email, address, 
+      qq, blog, get, jobtype, 
+      nearjob, workplace, money, 
+      jobwanted, studystart, studyover, 
+      school, major, photo, 
+      jobstart, jobover, companyname, 
+      companyinformation, workin, showing, 
+      trainstart, trainover, trainplace, 
+      class1, classinformation, date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{resumename,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{brithday,jdbcType=TIMESTAMP}, 
+      #{height,jdbcType=INTEGER}, #{married,jdbcType=TINYINT}, #{experience,jdbcType=VARCHAR}, 
+      #{idaddress,jdbcType=VARCHAR}, #{educational,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{blog,jdbcType=VARCHAR}, #{get,jdbcType=TINYINT}, #{jobtype,jdbcType=INTEGER}, 
+      #{nearjob,jdbcType=VARCHAR}, #{workplace,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, 
+      #{jobwanted,jdbcType=VARCHAR}, #{studystart,jdbcType=TIMESTAMP}, #{studyover,jdbcType=TIMESTAMP}, 
+      #{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{jobstart,jdbcType=TIMESTAMP}, #{jobover,jdbcType=TIMESTAMP}, #{companyname,jdbcType=VARCHAR}, 
+      #{companyinformation,jdbcType=VARCHAR}, #{workin,jdbcType=VARCHAR}, #{showing,jdbcType=VARCHAR}, 
+      #{trainstart,jdbcType=TIMESTAMP}, #{trainover,jdbcType=TIMESTAMP}, #{trainplace,jdbcType=VARCHAR}, 
+      #{class1,jdbcType=VARCHAR}, #{classinformation,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Resume">
+    insert into resume
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="resumename != null">
+        resumename,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="brithday != null">
+        brithday,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="married != null">
+        married,
+      </if>
+      <if test="experience != null">
+        experience,
+      </if>
+      <if test="idaddress != null">
+        idaddress,
+      </if>
+      <if test="educational != null">
+        educational,
+      </if>
+      <if test="hobby != null">
+        hobby,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="blog != null">
+        blog,
+      </if>
+      <if test="get != null">
+        get,
+      </if>
+      <if test="jobtype != null">
+        jobtype,
+      </if>
+      <if test="nearjob != null">
+        nearjob,
+      </if>
+      <if test="workplace != null">
+        workplace,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="jobwanted != null">
+        jobwanted,
+      </if>
+      <if test="studystart != null">
+        studystart,
+      </if>
+      <if test="studyover != null">
+        studyover,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="jobstart != null">
+        jobstart,
+      </if>
+      <if test="jobover != null">
+        jobover,
+      </if>
+      <if test="companyname != null">
+        companyname,
+      </if>
+      <if test="companyinformation != null">
+        companyinformation,
+      </if>
+      <if test="workin != null">
+        workin,
+      </if>
+      <if test="showing != null">
+        showing,
+      </if>
+      <if test="trainstart != null">
+        trainstart,
+      </if>
+      <if test="trainover != null">
+        trainover,
+      </if>
+      <if test="trainplace != null">
+        trainplace,
+      </if>
+      <if test="class1 != null">
+        class1,
+      </if>
+      <if test="classinformation != null">
+        classinformation,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resumename != null">
+        #{resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="brithday != null">
+        #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="married != null">
+        #{married,jdbcType=TINYINT},
+      </if>
+      <if test="experience != null">
+        #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="idaddress != null">
+        #{idaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="educational != null">
+        #{educational,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="blog != null">
+        #{blog,jdbcType=VARCHAR},
+      </if>
+      <if test="get != null">
+        #{get,jdbcType=TINYINT},
+      </if>
+      <if test="jobtype != null">
+        #{jobtype,jdbcType=INTEGER},
+      </if>
+      <if test="nearjob != null">
+        #{nearjob,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="jobwanted != null">
+        #{jobwanted,jdbcType=VARCHAR},
+      </if>
+      <if test="studystart != null">
+        #{studystart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studyover != null">
+        #{studyover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="jobstart != null">
+        #{jobstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobover != null">
+        #{jobover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyname != null">
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyinformation != null">
+        #{companyinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="workin != null">
+        #{workin,jdbcType=VARCHAR},
+      </if>
+      <if test="showing != null">
+        #{showing,jdbcType=VARCHAR},
+      </if>
+      <if test="trainstart != null">
+        #{trainstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainover != null">
+        #{trainover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainplace != null">
+        #{trainplace,jdbcType=VARCHAR},
+      </if>
+      <if test="class1 != null">
+        #{class1,jdbcType=VARCHAR},
+      </if>
+      <if test="classinformation != null">
+        #{classinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.ResumeExample" resultType="java.lang.Long">
+    select count(*) from resume
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update resume
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumename != null">
+        resumename = #{record.resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brithday != null">
+        brithday = #{record.brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.height != null">
+        height = #{record.height,jdbcType=INTEGER},
+      </if>
+      <if test="record.married != null">
+        married = #{record.married,jdbcType=TINYINT},
+      </if>
+      <if test="record.experience != null">
+        experience = #{record.experience,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idaddress != null">
+        idaddress = #{record.idaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.educational != null">
+        educational = #{record.educational,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hobby != null">
+        hobby = #{record.hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null">
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blog != null">
+        blog = #{record.blog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.get != null">
+        get = #{record.get,jdbcType=TINYINT},
+      </if>
+      <if test="record.jobtype != null">
+        jobtype = #{record.jobtype,jdbcType=INTEGER},
+      </if>
+      <if test="record.nearjob != null">
+        nearjob = #{record.nearjob,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workplace != null">
+        workplace = #{record.workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=DOUBLE},
+      </if>
+      <if test="record.jobwanted != null">
+        jobwanted = #{record.jobwanted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studystart != null">
+        studystart = #{record.studystart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.studyover != null">
+        studyover = #{record.studyover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.school != null">
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null">
+        major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null">
+        photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobstart != null">
+        jobstart = #{record.jobstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jobover != null">
+        jobover = #{record.jobover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.companyname != null">
+        companyname = #{record.companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyinformation != null">
+        companyinformation = #{record.companyinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workin != null">
+        workin = #{record.workin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showing != null">
+        showing = #{record.showing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trainstart != null">
+        trainstart = #{record.trainstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.trainover != null">
+        trainover = #{record.trainover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.trainplace != null">
+        trainplace = #{record.trainplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.class1 != null">
+        class1 = #{record.class1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classinformation != null">
+        classinformation = #{record.classinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update resume
+    set id = #{record.id,jdbcType=VARCHAR},
+      resumename = #{record.resumename,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      brithday = #{record.brithday,jdbcType=TIMESTAMP},
+      height = #{record.height,jdbcType=INTEGER},
+      married = #{record.married,jdbcType=TINYINT},
+      experience = #{record.experience,jdbcType=VARCHAR},
+      idaddress = #{record.idaddress,jdbcType=VARCHAR},
+      educational = #{record.educational,jdbcType=VARCHAR},
+      hobby = #{record.hobby,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      blog = #{record.blog,jdbcType=VARCHAR},
+      get = #{record.get,jdbcType=TINYINT},
+      jobtype = #{record.jobtype,jdbcType=INTEGER},
+      nearjob = #{record.nearjob,jdbcType=VARCHAR},
+      workplace = #{record.workplace,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DOUBLE},
+      jobwanted = #{record.jobwanted,jdbcType=VARCHAR},
+      studystart = #{record.studystart,jdbcType=TIMESTAMP},
+      studyover = #{record.studyover,jdbcType=TIMESTAMP},
+      school = #{record.school,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=VARCHAR},
+      photo = #{record.photo,jdbcType=VARCHAR},
+      jobstart = #{record.jobstart,jdbcType=TIMESTAMP},
+      jobover = #{record.jobover,jdbcType=TIMESTAMP},
+      companyname = #{record.companyname,jdbcType=VARCHAR},
+      companyinformation = #{record.companyinformation,jdbcType=VARCHAR},
+      workin = #{record.workin,jdbcType=VARCHAR},
+      showing = #{record.showing,jdbcType=VARCHAR},
+      trainstart = #{record.trainstart,jdbcType=TIMESTAMP},
+      trainover = #{record.trainover,jdbcType=TIMESTAMP},
+      trainplace = #{record.trainplace,jdbcType=VARCHAR},
+      class1 = #{record.class1,jdbcType=VARCHAR},
+      classinformation = #{record.classinformation,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Resume">
+    update resume
+    <set>
+      <if test="resumename != null">
+        resumename = #{resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="brithday != null">
+        brithday = #{brithday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="married != null">
+        married = #{married,jdbcType=TINYINT},
+      </if>
+      <if test="experience != null">
+        experience = #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="idaddress != null">
+        idaddress = #{idaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="educational != null">
+        educational = #{educational,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="blog != null">
+        blog = #{blog,jdbcType=VARCHAR},
+      </if>
+      <if test="get != null">
+        get = #{get,jdbcType=TINYINT},
+      </if>
+      <if test="jobtype != null">
+        jobtype = #{jobtype,jdbcType=INTEGER},
+      </if>
+      <if test="nearjob != null">
+        nearjob = #{nearjob,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        workplace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="jobwanted != null">
+        jobwanted = #{jobwanted,jdbcType=VARCHAR},
+      </if>
+      <if test="studystart != null">
+        studystart = #{studystart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="studyover != null">
+        studyover = #{studyover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="jobstart != null">
+        jobstart = #{jobstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobover != null">
+        jobover = #{jobover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyname != null">
+        companyname = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyinformation != null">
+        companyinformation = #{companyinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="workin != null">
+        workin = #{workin,jdbcType=VARCHAR},
+      </if>
+      <if test="showing != null">
+        showing = #{showing,jdbcType=VARCHAR},
+      </if>
+      <if test="trainstart != null">
+        trainstart = #{trainstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainover != null">
+        trainover = #{trainover,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trainplace != null">
+        trainplace = #{trainplace,jdbcType=VARCHAR},
+      </if>
+      <if test="class1 != null">
+        class1 = #{class1,jdbcType=VARCHAR},
+      </if>
+      <if test="classinformation != null">
+        classinformation = #{classinformation,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Resume">
+    update resume
+    set resumename = #{resumename,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      brithday = #{brithday,jdbcType=TIMESTAMP},
+      height = #{height,jdbcType=INTEGER},
+      married = #{married,jdbcType=TINYINT},
+      experience = #{experience,jdbcType=VARCHAR},
+      idaddress = #{idaddress,jdbcType=VARCHAR},
+      educational = #{educational,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      blog = #{blog,jdbcType=VARCHAR},
+      get = #{get,jdbcType=TINYINT},
+      jobtype = #{jobtype,jdbcType=INTEGER},
+      nearjob = #{nearjob,jdbcType=VARCHAR},
+      workplace = #{workplace,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      jobwanted = #{jobwanted,jdbcType=VARCHAR},
+      studystart = #{studystart,jdbcType=TIMESTAMP},
+      studyover = #{studyover,jdbcType=TIMESTAMP},
+      school = #{school,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      jobstart = #{jobstart,jdbcType=TIMESTAMP},
+      jobover = #{jobover,jdbcType=TIMESTAMP},
+      companyname = #{companyname,jdbcType=VARCHAR},
+      companyinformation = #{companyinformation,jdbcType=VARCHAR},
+      workin = #{workin,jdbcType=VARCHAR},
+      showing = #{showing,jdbcType=VARCHAR},
+      trainstart = #{trainstart,jdbcType=TIMESTAMP},
+      trainover = #{trainover,jdbcType=TIMESTAMP},
+      trainplace = #{trainplace,jdbcType=VARCHAR},
+      class1 = #{class1,jdbcType=VARCHAR},
+      classinformation = #{classinformation,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

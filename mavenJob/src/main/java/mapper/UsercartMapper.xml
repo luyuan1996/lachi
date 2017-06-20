@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UsercartMapper">
+  <resultMap id="BaseResultMap" type="pojo.Usercart">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="resumeid" jdbcType="VARCHAR" property="resumeid" />
+    <result column="jobid" jdbcType="VARCHAR" property="jobid" />
+    <result column="jobname" jdbcType="VARCHAR" property="jobname" />
+    <result column="companyname" jdbcType="VARCHAR" property="companyname" />
+    <result column="resumename" jdbcType="VARCHAR" property="resumename" />
+    <result column="byread" jdbcType="TINYINT" property="byread" />
+    <result column="information" jdbcType="VARCHAR" property="information" />
+    <result column="bydownload" jdbcType="TINYINT" property="bydownload" />
+    <result column="byview" jdbcType="TINYINT" property="byview" />
+    <result column="viewtime" jdbcType="TIMESTAMP" property="viewtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, uid, resumeid, jobid, jobname, companyname, resumename, byread, information, 
+    bydownload, byview, viewtime
+  </sql>
+  <select id="selectByExample" parameterType="pojo.UsercartExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from usercart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from usercart
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from usercart
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.UsercartExample">
+    delete from usercart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Usercart">
+    insert into usercart (id, uid, resumeid, 
+      jobid, jobname, companyname, 
+      resumename, byread, information, 
+      bydownload, byview, viewtime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{resumeid,jdbcType=VARCHAR}, 
+      #{jobid,jdbcType=VARCHAR}, #{jobname,jdbcType=VARCHAR}, #{companyname,jdbcType=VARCHAR}, 
+      #{resumename,jdbcType=VARCHAR}, #{byread,jdbcType=TINYINT}, #{information,jdbcType=VARCHAR}, 
+      #{bydownload,jdbcType=TINYINT}, #{byview,jdbcType=TINYINT}, #{viewtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Usercart">
+    insert into usercart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="resumeid != null">
+        resumeid,
+      </if>
+      <if test="jobid != null">
+        jobid,
+      </if>
+      <if test="jobname != null">
+        jobname,
+      </if>
+      <if test="companyname != null">
+        companyname,
+      </if>
+      <if test="resumename != null">
+        resumename,
+      </if>
+      <if test="byread != null">
+        byread,
+      </if>
+      <if test="information != null">
+        information,
+      </if>
+      <if test="bydownload != null">
+        bydownload,
+      </if>
+      <if test="byview != null">
+        byview,
+      </if>
+      <if test="viewtime != null">
+        viewtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeid != null">
+        #{resumeid,jdbcType=VARCHAR},
+      </if>
+      <if test="jobid != null">
+        #{jobid,jdbcType=VARCHAR},
+      </if>
+      <if test="jobname != null">
+        #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null">
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="resumename != null">
+        #{resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="byread != null">
+        #{byread,jdbcType=TINYINT},
+      </if>
+      <if test="information != null">
+        #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="bydownload != null">
+        #{bydownload,jdbcType=TINYINT},
+      </if>
+      <if test="byview != null">
+        #{byview,jdbcType=TINYINT},
+      </if>
+      <if test="viewtime != null">
+        #{viewtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.UsercartExample" resultType="java.lang.Long">
+    select count(*) from usercart
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update usercart
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumeid != null">
+        resumeid = #{record.resumeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobid != null">
+        jobid = #{record.jobid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobname != null">
+        jobname = #{record.jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyname != null">
+        companyname = #{record.companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resumename != null">
+        resumename = #{record.resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byread != null">
+        byread = #{record.byread,jdbcType=TINYINT},
+      </if>
+      <if test="record.information != null">
+        information = #{record.information,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bydownload != null">
+        bydownload = #{record.bydownload,jdbcType=TINYINT},
+      </if>
+      <if test="record.byview != null">
+        byview = #{record.byview,jdbcType=TINYINT},
+      </if>
+      <if test="record.viewtime != null">
+        viewtime = #{record.viewtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update usercart
+    set id = #{record.id,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      resumeid = #{record.resumeid,jdbcType=VARCHAR},
+      jobid = #{record.jobid,jdbcType=VARCHAR},
+      jobname = #{record.jobname,jdbcType=VARCHAR},
+      companyname = #{record.companyname,jdbcType=VARCHAR},
+      resumename = #{record.resumename,jdbcType=VARCHAR},
+      byread = #{record.byread,jdbcType=TINYINT},
+      information = #{record.information,jdbcType=VARCHAR},
+      bydownload = #{record.bydownload,jdbcType=TINYINT},
+      byview = #{record.byview,jdbcType=TINYINT},
+      viewtime = #{record.viewtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Usercart">
+    update usercart
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="resumeid != null">
+        resumeid = #{resumeid,jdbcType=VARCHAR},
+      </if>
+      <if test="jobid != null">
+        jobid = #{jobid,jdbcType=VARCHAR},
+      </if>
+      <if test="jobname != null">
+        jobname = #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null">
+        companyname = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="resumename != null">
+        resumename = #{resumename,jdbcType=VARCHAR},
+      </if>
+      <if test="byread != null">
+        byread = #{byread,jdbcType=TINYINT},
+      </if>
+      <if test="information != null">
+        information = #{information,jdbcType=VARCHAR},
+      </if>
+      <if test="bydownload != null">
+        bydownload = #{bydownload,jdbcType=TINYINT},
+      </if>
+      <if test="byview != null">
+        byview = #{byview,jdbcType=TINYINT},
+      </if>
+      <if test="viewtime != null">
+        viewtime = #{viewtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Usercart">
+    update usercart
+    set uid = #{uid,jdbcType=VARCHAR},
+      resumeid = #{resumeid,jdbcType=VARCHAR},
+      jobid = #{jobid,jdbcType=VARCHAR},
+      jobname = #{jobname,jdbcType=VARCHAR},
+      companyname = #{companyname,jdbcType=VARCHAR},
+      resumename = #{resumename,jdbcType=VARCHAR},
+      byread = #{byread,jdbcType=TINYINT},
+      information = #{information,jdbcType=VARCHAR},
+      bydownload = #{bydownload,jdbcType=TINYINT},
+      byview = #{byview,jdbcType=TINYINT},
+      viewtime = #{viewtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
